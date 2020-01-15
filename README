@@ -24,13 +24,22 @@ f'', g'
 
 Updated to build and run with gfortran on Darwin
 
-to run a test problem simply build and then type
+to run a test problem simply build using
+
+> ln -s gcc.mak Makefile
+> make all
+
+and then type
 
 > ./fsc < test.inp
 
-Note that one has to supply there own Runge routine
-currently and I will provide an update removing this
-dependancy shortly.
+Notes:
+1. The gcc.mak uses gfortran and should be rather
+   portable.  There are other, old, *.mak that you
+   may find helpful.
+2. One has to supply there own Runge routine
+   currently and I will provide an update removing this
+   dependancy shortly.
 
 Also contains publically available software PPPack
 from NetLib.org.
