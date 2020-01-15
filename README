@@ -28,5 +28,8 @@ Note that one has to supply there own Runge routine
 currently and I will provide an update removing this
 dependancy shortly.
 
+Also contains publically available software PPPack
+from NetLib.org.
+
 S. Scott Collis
 Tue Jan 14 07:41:39 MST 2020
