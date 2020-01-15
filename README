@@ -24,6 +24,10 @@ f'', g'
 
 Updated to build and run with gfortran on Darwin
 
+to run a test problem simply build and then type
+
+> ./fsc < test.inp
+
 Note that one has to supply there own Runge routine
 currently and I will provide an update removing this
 dependancy shortly.
