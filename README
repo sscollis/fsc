@@ -1,0 +1,28 @@
+Compressible Falkner-Skan-Cooke solver
+
+S. Collis
+
+Here are some typical parameters for this code.
+
+M_inf = 0.1, R=80000
+lambda = 45 deg
+BetaH = 1
+Tw = 1, T0 = 1, muw = 1
+T0/TN0 = 1.001
+f'', g'
+1.2332556981943E+00  5.7053820816947E-01
+
+
+M_inf = 0.3, R=1000
+lambda = 0
+BetaH = 0
+Tw = 1, T0=1, muw =1
+f'', g' 
+4.6959998836720E-01  4.6959998883669E-01
+
+==================================================
+
+Updated to build and run with gfortran on Darwin
+
+S. Scott Collis
+Tue Jan 14 07:41:39 MST 2020
