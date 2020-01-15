@@ -33,6 +33,10 @@ and then type
 
 > ./fsc < test.inp
 
+or for the attachment line problem
+
+> ./attach < at.inp
+
 Notes:
 1. The gcc.mak uses gfortran and should be rather
    portable.  There are other, old, *.mak that you
