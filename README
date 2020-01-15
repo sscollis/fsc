@@ -24,5 +24,9 @@ f'', g'
 
 Updated to build and run with gfortran on Darwin
 
+Note that one has to supply there own Runge routine
+currently and I will provide an update removing this
+dependancy shortly.
+
 S. Scott Collis
 Tue Jan 14 07:41:39 MST 2020
