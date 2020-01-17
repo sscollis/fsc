@@ -50,8 +50,8 @@
 
 !      call splint( x, u, knot, nx, korder, work, bs, iflag )
 !      if (iflag.ne.1) then
-!	write(*,*) 'Error in BSINT'
-!	stop
+!	       write(*,*) 'Error in BSINT'
+!	       stop
 !      end if
 
       return
@@ -118,4 +118,3 @@
 
       return
       end
-

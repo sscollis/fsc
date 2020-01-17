@@ -10,9 +10,9 @@ NAME     = fsc
 DEBUG    =
 OPT      = -O2
 FFLAGS   = -cpp -ffixed-line-length-120 -freal-4-real-8 -fdefault-real-8 \
-           -fdefault-integer-8 -std=legacy $(OPT) $(DEBUG)
+           -fdefault-integer-8 -std=legacy $(DEFINES) $(OPT) $(DEBUG)
 F90FLAGS = -cpp -freal-4-real-8 -fdefault-real-8 -fdefault-integer-8 \
-					 $(OPT) $(DEBUG)
+           $(DEFINES) $(OPT) $(DEBUG)
 OFLAGS   = $(OPT) $(DEBUG) -o $(NAME)
 LIB      =
 FC       = gfortran
@@ -20,7 +20,7 @@ F77      = gfortran
 
 .SUFFIXES: .f90 
 
-OBJECTS = fsc.o numrec.o bslib1.o bslib2.o
+OBJECTS = fsc.o numrec.o bslib1.o bslib2.o util.o
 
 ATTACH = attach.o numrec.o bslib1.o bslib2.o
 
