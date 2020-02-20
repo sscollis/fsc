@@ -54,8 +54,8 @@
         real :: dxt, deta
         
         external calcdx, fsc
-        real, external :: BSITG
-        
+        external calcdx_func, fsc_func
+
         real, allocatable :: xt(:), x(:), eta(:), y(:), u(:,:), &
                              us(:), tt0(:), tte(:), uve(:), wve(:)
         real :: theta, dxdxt, aeainf, aea0, ue, we, ys, fpp, gp, t0tn0
@@ -67,6 +67,7 @@
 
         integer :: korder
         real, allocatable :: knot(:), bs(:), int(:)
+        real, external :: BSITG
 !=============================================================================!
         write(*,"(/,'Solve the compressible attachment-line eqn',/)")
         write(*,"('Enter M_inf, Re_delta1 = ',$)")
@@ -109,7 +110,11 @@
 
 !.... integrate to get x (not really needed for attachment-line case)
 
+#ifdef USE_NR
         call runge( x(1), 1, zero, xtmax, nx-1, calcdx, xt, x)
+#else
+        call advance( calcdx_func, 1, zero, xtmax, nx-1, xt, x )
+#endif
         
         do i = 1, nx
           if (m.eq.zero) then
@@ -196,7 +201,11 @@
 
         us = u(:,1)
         
+#ifdef USE_NR
         call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+#else
+        call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
+#endif
 
         write (*,20) iter, u(key(1),1), u(key(2),1), u(2,ny), u(5,ny)
  20     format(1p,i5,1x,4(e13.7,1x))
@@ -211,7 +220,11 @@
         u(key(1),1) = (one + eps) * us(key(1))
         u(key(2),1) = us(key(2))
         
+#ifdef USE_NR
         call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+#else
+        call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
+#endif
 
         a11 = (u(2,ny)-b1)/(eps*us(key(1)))
         a21 = (u(5,ny)-b2)/(eps*us(key(1)))
@@ -221,7 +234,11 @@
         u(key(1),1) = us(key(1))
         u(key(2),1) = (one + eps) * us(key(2))
         
+#ifdef USE_NR        
         call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+#else
+        call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
+#endif
         
         a12 = (u(2,ny)-b1)/(eps*us(key(2)))
         a22 = (u(5,ny)-b2)/(eps*us(key(2)))
@@ -245,7 +262,11 @@
 !.... integrate one last time using the latest wall values
 
         iter = iter + 1
+#ifdef USE_NR
         call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+#else
+        call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
+#endif
 
         write (*,20) iter, u(key(1),1), u(key(2),1), u(2,ny), u(5,ny)
 
@@ -350,6 +371,15 @@
         end
 
 !=============================================================================!
+        subroutine fsc_func(neq, u, eta, du)
+!=============================================================================!
+        integer neq
+        real u(neq), eta, du(neq)
+        call fsc(eta, u, du)
+        return
+        end
+
+!=============================================================================!
         subroutine fsc(eta, u, du)
 !
 !       The compressible Falkner-Skan-Cooke equations
@@ -384,6 +414,15 @@
         end
 
 !=============================================================================!
+        subroutine calcdx_func(neq, x, xt, dxdxt)
+!=============================================================================!
+        integer neq
+        real x, xt, dxdxt
+        call calcdx(xt, x, dxdxt)
+        return
+        end
+
+!=============================================================================!
         subroutine calcdx( xt, x, dxdxt )
 !
 !       Compute x from the Stewartson's + similarity transformation
@@ -408,4 +447,3 @@
         dxdxt = ( mu0 * tw ) / ( muw * t0 ) * aea0**((one-three*gamma)/gamma1)
         return
         end
-        

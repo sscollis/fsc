@@ -1,9 +1,9 @@
 #==============================================================================
-#  Makefile for fsc (SGI)
+#  Makefile for fsc (GCC) 
 #
 #  Author:  Scott Collis
 #
-#  Revised: 1-29-97
+#  Revised: 2-20-2020 
 #
 #==============================================================================
 NAME     = fsc 
@@ -19,10 +19,18 @@ FC       = gfortran
 F77      = gfortran
 
 .SUFFIXES: .f90 
+#
+# If you have Numerical Recipes with a valid licence you can activate
+# this. Of course, this commercial code is not distributed with FSC
+#
+ifdef USE_NR
+	DEFINES += -DUSE_NR
+	NROBJ = numrec.o
+endif
 
-OBJECTS = fsc.o numrec.o bslib1.o bslib2.o util.o
+OBJECTS = fsc.o $(NROBJ) bslib1.o bslib2.o util.o
 
-ATTACH = attach.o numrec.o bslib1.o bslib2.o
+ATTACH = attach.o $(NROBJ) bslib1.o bslib2.o util.o
 
 all: fsc attach
 
@@ -39,4 +47,4 @@ attach: $(ATTACH)
 	$(F77) $(FFLAGS) -c $*.f
 
 clean:
-	/bin/rm -f *.o *.mod attach fsc
+	$(RM) *.o *.mod fsc attach
