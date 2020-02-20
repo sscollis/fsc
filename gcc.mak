@@ -7,6 +7,15 @@
 #
 #==============================================================================
 NAME     = fsc 
+#
+# If you have Numerical Recipes with a valid licence you can activate
+# this. Of course, this commercial code is not distributed with FSC
+#
+ifdef USE_NR
+	DEFINES += -DUSE_NR
+	NROBJ = numrec.o
+endif
+#
 DEBUG    =
 OPT      = -O2
 FFLAGS   = -cpp -ffixed-line-length-120 -freal-4-real-8 -fdefault-real-8 \
@@ -19,14 +28,6 @@ FC       = gfortran
 F77      = gfortran
 
 .SUFFIXES: .f90 
-#
-# If you have Numerical Recipes with a valid licence you can activate
-# this. Of course, this commercial code is not distributed with FSC
-#
-ifdef USE_NR
-	DEFINES += -DUSE_NR
-	NROBJ = numrec.o
-endif
 
 OBJECTS = fsc.o $(NROBJ) bslib1.o bslib2.o util.o
 
