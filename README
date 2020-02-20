@@ -43,13 +43,18 @@ or for the attachment line problem
 Notes:
 1. The gcc.mak uses gfortran and should be rather
    portable.  There are other, old, *.mak that you
-   may find helpful.
-2. One has to supply there own Runge routine
-   currently and I will provide an update removing this
-   dependancy shortly.
+   may find helpful but they have not been updated.
+2. One optionally use Numerical Recipes integration
+   if you have the code (not supplied) and are 
+   licensed to use it. To do so, build by using:
+
+   make USE_NR=1
+
+   this assumes that you have placed the needed NR
+   routines in numrec.f90 (again not supplied).
 
 Also contains publically available software PPPack
 from NetLib.org.
 
 S. Scott Collis
-Tue Jan 14 07:41:39 MST 2020
+Thu Feb 20 07:25:02 MST 2020
