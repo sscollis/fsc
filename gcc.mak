@@ -6,16 +6,21 @@
 #  Revised: 2-20-2020 
 #
 #==============================================================================
-NAME     = fsc 
 #
 # If you have Numerical Recipes with a valid licence you can activate
 # this. Of course, this commercial code is not distributed with FSC
+# To use you must supply the needed routines in numrec.f and you must
+# have a valid license to use that code.
+#
+# Note:  This is completely optional as inline integration routines work
+#        well.  This is just provided for historical reference.
 #
 ifdef USE_NR
 	DEFINES += -DUSE_NR
 	NROBJ = numrec.o
 endif
 #
+NAME     = fsc
 DEBUG    =
 OPT      = -O2
 FFLAGS   = -cpp -ffixed-line-length-120 -freal-4-real-8 -fdefault-real-8 \
