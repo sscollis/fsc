@@ -24,7 +24,7 @@ Notes:
 1. The gcc.mak uses gfortran and should be rather
    portable.  There are other, old, `*.mak` that you
    may find helpful but they have not been updated.
-2. One optionally use Numerical Recipes integration
+2. One may, optionally, use Numerical Recipes integration
    if you have the code (not supplied) and are 
    licensed to use it. To do so, build by using:
 
