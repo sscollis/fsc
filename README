@@ -1,19 +1,15 @@
-======================================
-Compressible Falkner-Skan-Cooke solver
-======================================
+# Compressible Falkner-Skan-Cooke solver
 
 This is updated to build and run with gfortran on Darwin
 
-Building
-========
+## Building
 
 to run a test problem simply build using
 
 > ln -s gcc.mak Makefile
 > make all
 
-Running
-=======
+## Running
 
 To run FSC enter the following:
 
@@ -24,7 +20,6 @@ or for the attachment line problem
 > ./attach < at.inp
 
 Notes:
-======
 
 1. The gcc.mak uses gfortran and should be rather
    portable.  There are other, old, *.mak that you
@@ -43,8 +38,7 @@ Notes:
 Also contains publically available software PPPack
 from NetLib.org.
 
-Additional Information
-======================
+## Additional Information
 
 Here are some typical parameters for this code.
 
