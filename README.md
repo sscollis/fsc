@@ -43,13 +43,13 @@ from NetLib.org.
 Here are some typical parameters for this code.
 
 ### Case 1:
->  `M_inf = 0.1, R=80000
->  lambda = 45 deg
->  BetaH = 1
->  Tw = 1, T0 = 1, muw = 1
->  T0/TN0 = 1.001
->  f'', g'
->  1.2332556981943E+00  5.7053820816947E-01`
+    M_inf = 0.1, R=80000
+    lambda = 45 deg
+    BetaH = 1
+    Tw = 1, T0 = 1, muw = 1
+    T0/TN0 = 1.001
+    f'', g'
+    1.2332556981943E+00  5.7053820816947E-01`
 
 ### Case 2:
 >  `M_inf = 0.3, R=1000
