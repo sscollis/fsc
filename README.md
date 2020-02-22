@@ -22,13 +22,13 @@ or for the attachment line problem
 Notes:
 
 1. The gcc.mak uses gfortran and should be rather
-   portable.  There are other, old, '*.mak' that you
+   portable.  There are other, old, `*.mak` that you
    may find helpful but they have not been updated.
 2. One optionally use Numerical Recipes integration
    if you have the code (not supplied) and are 
    licensed to use it. To do so, build by using:
 
-   make USE_NR=1
+   `make USE_NR=1`
 
    this assumes that you have placed the needed NR
    routines in numrec.f90 (again not supplied).
