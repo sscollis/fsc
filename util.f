@@ -527,7 +527,7 @@ C***********************************************************************
 c
 c     Test data
 c
-#ifdef OS_DEBUG
+#ifdef FSC_DEBUG
       do i = 1, 6
         do j = 1, 5
           write(*,*) i, j, b(i,j)
@@ -602,7 +602,7 @@ C***********************************************************************
 c
 c     Test data
 c
-#ifdef OS_DEBUG
+#ifdef FSC_DEBUG
       do i = 1, 6
         do j = 1, 5
           write(*,*) i, j, b(i,j)
