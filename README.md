@@ -33,7 +33,10 @@ Notes:
    this assumes that you have placed the needed NR
    routines in `numrec.f90` (again not supplied).
 3. The primary output files are `cprofile.dat` and
-   `sprofile.dat`
+   `sprofile.dat` these are to be compared with 
+   `cprofile.ref` and `sprofile.ref` after running
+   
+   ./fsc < test.inp
 
 Also contains publically available software PPPack
 from `NetLib.org`.
