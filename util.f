@@ -1,4 +1,3 @@
-
 C***********************************************************************
 C>    \brief Advance one time step using fourth order (real) Runge-Kutta
 C>    \param[in] neq number of equations
