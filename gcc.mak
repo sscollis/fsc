@@ -15,9 +15,11 @@
 # Note:  This is completely optional as inline integration routines work
 #        well.  This is just provided for historical reference.
 #
+SHELL := /bin/bash
+
 ifdef USE_NR
-	DEFINES += -DUSE_NR
-	NROBJ = numrec.o
+  DEFINES += -DUSE_NR
+  NROBJ = numrec.o
 endif
 #
 NAME     = fsc
@@ -54,3 +56,18 @@ attach: $(ATTACH)
 
 clean:
 	$(RM) *.o *.mod fsc attach
+
+distclean:
+	make clean
+	./cleanup
+
+check:
+	./fsc < test.inp && \
+	diff cprofile.dat cprofile.ref && \
+	diff sprofile.dat sprofile.ref; \
+	if [ $$? -eq 0 ]; \
+        then \
+	  echo SUCCESS; \
+	else \
+	  echo FAILURE; \
+	fi
