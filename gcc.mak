@@ -19,7 +19,7 @@ SHELL := /bin/bash
 
 ifdef USE_NR
   DEFINES += -DUSE_NR
-  NROBJ = numrec.o
+  NROBJ = nr_runge.o
 endif
 #
 NAME     = fsc

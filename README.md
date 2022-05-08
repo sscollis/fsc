@@ -31,8 +31,11 @@ Notes:
    `make USE_NR=1`
 
    this assumes that you have placed the needed NR
-   routines in `numrec.f90` (again not supplied).
-3. The primary output files are `cprofile.dat` and
+   routines in `nr_runge.f90` (again not supplied).
+3. Note that you do not need NR software as there
+   is not equivalent public domain software that
+   we now use.
+4. The primary output files are `cprofile.dat` and
    `sprofile.dat` these are to be compared with 
    `cprofile.ref` and `sprofile.ref` after running
    
