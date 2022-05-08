@@ -36,7 +36,7 @@ Notes:
    `sprofile.dat` these are to be compared with 
    `cprofile.ref` and `sprofile.ref` after running
    
-   ./fsc < test.inp
+    `./fsc < test.inp`
 
 Also contains publically available software PPPack
 from `NetLib.org`.
