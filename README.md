@@ -66,4 +66,3 @@ Here are some typical parameters for this code.
     4.6959998836720E-01  4.6959998883669E-01`
 
 S. Scott Collis \
-Thu Feb 20 07:25:02 MST 2020
