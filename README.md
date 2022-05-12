@@ -65,4 +65,4 @@ Here are some typical parameters for this code.
     f'', g'
     4.6959998836720E-01  4.6959998883669E-01`
 
-S. Scott Collis \
+S. Scott Collis
