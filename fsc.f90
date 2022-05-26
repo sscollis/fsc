@@ -116,6 +116,10 @@
         call advance( calcdx_func, 1, zero, xtmax, nx-1, xt, x )
 #endif
         
+        open(unit=10,file='thick.dat',form='formatted',status='unknown')
+        write(10,12)  
+  12    format('#  xt  x  aea_inf,  aea_0, theta, aea0*c*xt**m, ' &
+               'Minf * sin(lambda), dxdxt')
         do i = 1, nx
           if (m.eq.zero) then
             aeainf = a0ainf * sqrt( ( one + pt5 * gamma1 * Minf**2 * &
@@ -130,7 +134,8 @@
           if (m.eq.zero) then
             theta = 180.0 / pi * atan2(Minf * sin(lambda), aea0 * c )
           else
-            theta = 180.0 / pi * atan2(Minf * sin(lambda), aea0 * c * xt(i)**m)
+            theta = 180.0 / pi * atan2(Minf * sin(lambda), &
+                    aea0 * c * xt(i)**m)
           end if
           dxdxt = ( mu0 * tw ) / ( muw * t0 ) * aea0** &
                   ((one-three*gamma)/gamma1)
@@ -142,6 +147,7 @@
               aea0 * c * xt(i)**m, Minf * sin(lambda), dxdxt
           end if
         end do
+        close(10)
 
 !.... compute some quantities at xt = 1
 
@@ -280,9 +286,10 @@
 
         ve = sqrt( (aea0 * c)**2 + (Minf * sin(lambda))**2 )
         do j = 1, ny
-          tt0(j) = one + (tw/t0 - one) * (one - u(5,j)) - pt5 * gamma1 * &
-                   (aea0 * c / a0ainf)**2 * u(2,j)**2 - (one - one/t0tn0) * &
-                   u(5,j)**2
+          tt0(j) = one + (tw/t0 - one) * (one - u(5,j)) - &
+                   pt5 * gamma1 * &
+                   (aea0 * c / a0ainf)**2 * u(2,j)**2 - &
+                   (one - one/t0tn0) * u(5,j)**2
           tte(j) = tt0(j) / aea0**2
           uve(j) = aea0 * c * u(2,j) / ve
           wve(j) = Minf * sin(lambda) * u(5,j) /ve
@@ -360,10 +367,10 @@
                  '  H = ',1pe13.6)
         endif
         
-        open(50,file='cprofile.dat')
-        open(60,file='sprofile.dat')
-        write(50,*) "# ", 1, ny, 5, eta(ny)
-        write(60,*) "# ", 1, ny, 5, eta(ny)
+        open(50,file='cprofile.dat',form='formatted',status='unknown')
+        open(60,file='sprofile.dat',form='formatted',status='unknown')
+        write(50,11) 1, ny, 5, eta(ny)
+        write(60,11) 1, ny, 5, eta(ny)
         do j = 1, ny
           write (50,10) eta(j), one/tte(j), uve(j), zero, wve(j), tte(j)
           write (60,10) eta(j), one/tte(j), uve(j) * cos(lambda) + &
@@ -375,8 +382,10 @@
         close(60)
         
         stop
- 10     format( 8(1pe12.4E3,1x) )
-        end
+ 10     format(1p,8(e20.13,1x))
+ 11     format('# ind = ',i5,', ny = ',i5,', ndof = ',i5, &
+               ', ymax = ',1pe20.13)
+        end program fsc_solver
 
 !=============================================================================!
         subroutine fsc_func(neq, u, eta, du)
@@ -385,7 +394,7 @@
         real u(neq), eta, du(neq)
         call fsc(eta, u, du)
         return
-        end
+        end subroutine fsc_func
 
 !=============================================================================!
         subroutine fsc(eta, u, du)
@@ -419,7 +428,7 @@
         du(5) = u(4)
 
         return
-        end
+        end subroutine fsc
 
 !=============================================================================!
         subroutine calcdx_func(neq, x, xt, dxdxt)
@@ -428,7 +437,7 @@
         real x, xt, dxdxt
         call calcdx(xt, x, dxdxt)
         return
-        end
+        end subroutine calcdx_func
 
 !=============================================================================!
         subroutine calcdx( xt, x, dxdxt )
@@ -452,6 +461,7 @@
             c**2 * xt**(2*m) ) )
         end if
         aea0 = aeainf / a0ainf
-        dxdxt = ( mu0 * tw ) / ( muw * t0 ) * aea0**((one-three*gamma)/gamma1)
+        dxdxt = ( mu0 * tw ) / ( muw * t0 ) * aea0**((one-three*gamma)/&
+                gamma1)
         return
-        end
+        end subroutine calcdx
