@@ -63,11 +63,16 @@
         real :: ve, delta1, delta2, Re_d1, deltaL
         integer :: iter, key(2)
 
+        real, allocatable :: rhot(:), rhos(:), uves(:), wves(:), ttes(:)
+        real, allocatable :: g2rho(:), g2uve(:), g2wve(:), g2tte(:)
+        real, allocatable :: g22rho(:), g22uve(:), g22wve(:), g22tte(:)
+        real, allocatable :: eta_org(:)
+
 !.... B-spline variables for integration
 
         integer :: korder
         real, allocatable :: knot(:), bs(:), int(:)
-        real, external :: BSITG
+        real, external :: BSITG, BSDER
 !=============================================================================!
         write(*,"(/,'Solve the compressible FSC equations',/)")
         write(*,"('Enter M_e, Re_delta1 = ',$)")
@@ -111,7 +116,7 @@
 !.... integrate to get x
 
 #ifdef USE_NR
-        call runge( x(1), 1, zero, xtmax, nx-1, calcdx, xt, x)
+        call nr_runge( x(1), 1, zero, xtmax, nx-1, calcdx, xt, x)
 #else
         call advance( calcdx_func, 1, zero, xtmax, nx-1, xt, x )
 #endif
@@ -210,7 +215,7 @@
         us = u(:,1)
         
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -229,7 +234,7 @@
         u(key(2),1) = us(key(2))
         
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -243,7 +248,7 @@
         u(key(2),1) = (one + eps) * us(key(2))
 
 #ifdef USE_NR        
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -271,7 +276,7 @@
 
         iter = iter + 1
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -344,6 +349,9 @@
  60     format('Delta_1 = ',1pe13.6,'  Delta_2 = ',1pe13.6, &
                '  H = ',1pe13.6,'  Re = ',1pe13.6)
 
+        allocate( eta_org(ny) )
+        eta_org = eta;
+
 !.... cprofile.dat is in chordwise coordinates
 !.... sprofile.dat is in streamline coordinates
 
@@ -366,22 +374,55 @@
 70        format('Delta_1 = ',1pe13.6,'  Delta_2 = ',1pe13.6, &
                  '  H = ',1pe13.6)
         endif
-        
+
+!.... use BSplines to compute derivatives (reset knots)
+      
+        call BSNAK( ny, eta, korder, knot )
+        allocate( rhot(ny), rhos(ny), uves(ny), wves(ny), ttes(ny) ) 
+        allocate( g2rho(ny), g2uve(ny), g2wve(ny), g2tte(ny) ) 
+        allocate( g22rho(ny), g22uve(ny), g22wve(ny), g22tte(ny) ) 
+        do j = 1, ny
+          rhot(j) = one/tte(j) 
+        end do
+        call BSINT( ny, eta, rhot, korder, knot, rhos )
+        call BSINT( ny, eta,  uve, korder, knot, uves )
+        call BSINT( ny, eta,  wve, korder, knot, wves )
+        call BSINT( ny, eta,  tte, korder, knot, ttes )
+        do j = 1, ny
+          g2rho(j)  = BSDER(1, eta(j), korder, knot, ny, rhos )
+          g2uve(j)  = BSDER(1, eta(j), korder, knot, ny, uves )
+          g2wve(j)  = BSDER(1, eta(j), korder, knot, ny, wves )
+          g2tte(j)  = BSDER(1, eta(j), korder, knot, ny, ttes )
+          g22rho(j) = BSDER(2, eta(j), korder, knot, ny, rhos )
+          g22uve(j) = BSDER(2, eta(j), korder, knot, ny, uves )
+          g22wve(j) = BSDER(2, eta(j), korder, knot, ny, wves )
+          g22tte(j) = BSDER(2, eta(j), korder, knot, ny, ttes )
+        end do
+ 
         open(50,file='cprofile.dat',form='formatted',status='unknown')
+        open(51,file='cfirst.dat',form='formatted',status='unknown')
+        open(52,file='csecond.dat',form='formatted',status='unknown')
         open(60,file='sprofile.dat',form='formatted',status='unknown')
         write(50,11) 1, ny, 5, eta(ny)
+        write(51,11) 1, ny, 5, eta(ny)
+        write(52,11) 1, ny, 5, eta(ny)
         write(60,11) 1, ny, 5, eta(ny)
         do j = 1, ny
           write (50,10) eta(j), one/tte(j), uve(j), zero, wve(j), tte(j)
+          write (51,10) eta(j), g2rho(j), g2uve(j), zero, g2wve(j), &
+                        g2tte(j)
+          write (52,10) eta(j), g22rho(j), g22uve(j), zero, g22wve(j), &
+                        g22tte(j)
           write (60,10) eta(j), one/tte(j), uve(j) * cos(lambda) + &
                         wve(j) * sin(lambda), zero, &
                         -uve(j) * sin(lambda) + wve(j) * cos(lambda), &
                         tte(j)
         end do
         close(50)
+        close(51)
+        close(52)
         close(60)
         
-        stop
  10     format(1p,8(e20.13,1x))
  11     format('# ind = ',i5,', ny = ',i5,', ndof = ',i5, &
                ', ymax = ',1pe20.13)

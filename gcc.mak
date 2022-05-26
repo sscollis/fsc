@@ -19,7 +19,8 @@ SHELL := /bin/bash
 
 ifdef USE_NR
   DEFINES += -DUSE_NR
-  NROBJ = nr_runge.o
+  #NROBJ = nr_runge.o
+  NRLIB = -L../NR-utilities -lnr
 endif
 #
 NAME     = fsc
@@ -30,7 +31,7 @@ FFLAGS   = -cpp -ffixed-line-length-120 -freal-4-real-8 -fdefault-real-8 \
 F90FLAGS = -cpp -freal-4-real-8 -fdefault-real-8 -fdefault-integer-8 \
            $(DEFINES) $(OPT) $(DEBUG)
 OFLAGS   = $(OPT) $(DEBUG) -o $(NAME)
-LIB      =
+LIB      = $(NRLIB)
 FC       = gfortran
 F77      = gfortran
 

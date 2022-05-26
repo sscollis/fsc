@@ -111,7 +111,7 @@
 !.... integrate to get x (not really needed for attachment-line case)
 
 #ifdef USE_NR
-        call runge( x(1), 1, zero, xtmax, nx-1, calcdx, xt, x)
+        call nr_runge( x(1), 1, zero, xtmax, nx-1, calcdx, xt, x)
 #else
         call advance( calcdx_func, 1, zero, xtmax, nx-1, xt, x )
 #endif
@@ -202,7 +202,7 @@
         us = u(:,1)
         
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -221,7 +221,7 @@
         u(key(2),1) = us(key(2))
         
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -235,7 +235,7 @@
         u(key(2),1) = (one + eps) * us(key(2))
         
 #ifdef USE_NR        
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
@@ -263,7 +263,7 @@
 
         iter = iter + 1
 #ifdef USE_NR
-        call runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
+        call nr_runge(u(1,1),nvar,etamin,etamax,ny-1,fsc,eta,u)
 #else
         call advance(fsc_func, nvar, etamin, etamax, ny-1, eta, u)
 #endif
