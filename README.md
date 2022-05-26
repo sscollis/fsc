@@ -74,12 +74,12 @@ Here are some typical parameters for this code.
 
 ### In TeX
 
-    $$ M_\infty = 0.3 $$
-    $$ R_\delta{_1} = 1000 $$
-    $$ \lambda = 0 $$
-    $$ \beta_h = 0 $$
-    $$ T_w = 1, T_0 = 1, \mu_w = 1 $$
-    $$ f'' = 4.6959998836720E-01 $$
-    $$ g' = 4.6959998883669E-01 $$
+$$ M_\infty = 0.3 $$
+$$ R_\delta{_1} = 1000 $$
+$$ \lambda = 0 $$
+$$ \beta_h = 0 $$
+$$ T_w = 1, T_0 = 1, \mu_w = 1 $$
+$$ f'' = 4.6959998836720E-01 $$
+$$ g' = 4.6959998883669E-01 $$
 
 S. Scott Collis
