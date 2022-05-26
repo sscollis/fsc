@@ -19,7 +19,14 @@ or for the attachment line problem
 
     ./attach < at.inp
 
-Notes:
+The Blasius Tollmein-Schlichting case from Collis Ph.D. thesis
+Chapter 4 is run using:
+
+    ./fsc < blasius.inp
+
+See `stab/thesis` for more details.
+
+## Notes:
 
 1. The gcc.mak uses gfortran and should be rather
    portable.  There are other, old, `*.mak` that you
@@ -57,7 +64,7 @@ Here are some typical parameters for this code.
     f'', g'
     1.2332556981943E+00  5.7053820816947E-01`
 
-### Case 2:
+### Case 2: (Blasius TS case Collis, Ch. 4, Ph.D. thesis)
     M_inf = 0.3, R=1000
     lambda = 0
     BetaH = 0
