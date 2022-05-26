@@ -46,7 +46,7 @@ See `stab/thesis` for more details.
    `sprofile.dat` these are to be compared with 
    `cprofile.ref` and `sprofile.ref` after running
    
-    `./fsc < test.inp`
+   `./fsc < test.inp`
 
 Also contains publically available software PPPack
 from `NetLib.org`.
@@ -71,5 +71,15 @@ Here are some typical parameters for this code.
     Tw = 1, T0=1, muw =1
     f'', g'
     4.6959998836720E-01  4.6959998883669E-01`
+
+### In TeX
+
+    $$ M_\infty = 0.3 $$
+    $$ R_\delta{_1} = 1000 $$
+    $$ \lambda = 0 $$
+    $$ \beta_h = 0 $$
+    $$ T_w = 1, T_0 = 1, \mu_w = 1 $$
+    $$ f'' = 4.6959998836720E-01 $$
+    $$ g' = 4.6959998883669E-01 $$
 
 S. Scott Collis
