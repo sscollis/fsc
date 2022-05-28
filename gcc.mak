@@ -60,7 +60,7 @@ clean:
 
 distclean:
 	make clean
-	./cleanup
+	./cleanup.sh
 
 check:
 	./fsc < test.inp && \
