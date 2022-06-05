@@ -75,4 +75,5 @@ Here are some typical parameters for this code.
 Or equivalently:  $M_\infty = 0.3$, $R_\delta{_1} = 1000$, $\lambda = 0$, $\beta_h = 0$, $T_w = 1$, $T_0 = 1$, $\mu_w = 1$
 with initial guesses $f'' = 4.6959998836720\times10^{-1}$ and $g' = 4.6959998883669\times10^{-1}$.
 
-S. Scott Collis
+S. Scott Collis\
+flow.physics.simulation@gmail.com
