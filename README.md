@@ -1,6 +1,8 @@
 # Compressible Falkner-Skan-Cooke solver
 
-This is updated to build and run with gfortran on Darwin
+Solves the Falkner-Skan-Cooke equations by computing the compressible similarity solutions for a swept-wing  boundary layer at Pr=1 using the Stewartson transformation.
+
+This is updated to build and run with gfortran on Darwin and Linux. 
 
 ## Building
 
