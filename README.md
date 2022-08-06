@@ -26,7 +26,7 @@ Chapter 4 is run using:
 
     ./fsc < blasius.inp
 
-See `stab/thesis` for more details.
+See `stab/thesis` for more details including linear stability analysis for this flow. 
 
 ## Notes:
 
