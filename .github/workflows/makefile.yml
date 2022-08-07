@@ -20,8 +20,8 @@ jobs:
     - name: Install dependencies
       run: make all
 
-    - name: Run check
-      run: make check
+    #- name: Run check
+    #  run: make check
 
     - name: Run distclean
       run: make distclean
