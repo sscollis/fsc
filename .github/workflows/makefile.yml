@@ -24,7 +24,7 @@ jobs:
       run: make all
 
     - name: Run check
-      run: make check
+      run: env LIBDIR=/usr/local/share/lib/ndiff/ndiff-2.00 make check
 
     - name: Run distclean
       run: make distclean
