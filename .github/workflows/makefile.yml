@@ -18,7 +18,7 @@ jobs:
       run:  brew install ndiff
       
     - name: check ndiff
-      run:  cat /usr/local/bin/ndiff
+      run:  which ndiff # cat /usr/local/bin/ndiff
 
     - name: configure
       run: ln -s gcc.mak Makefile
