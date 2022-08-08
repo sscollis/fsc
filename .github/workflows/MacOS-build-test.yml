@@ -13,17 +13,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: install ndiff
+      run:  curl -s -O ftp://ftp.math.utah.edu/pub/misc/ndiff-2.00.tar.gz && tar -xzf ndiff-2.00.tar.gz && cd ndiff-2.00 && ./configure && make all && ./ndiff -h && cp ndiff $GITHUB_WORKSPACE
 
-    - name: brew ndiff
-      run:  brew install ndiff
+    - name: Add ndiff to path
+      run: echo "$GITHUB_WORKSPACE" >> $GITHUB_PATH
       
-    - name: check brew ndiff
-      run:  cat /usr/local/bin/ndiff
+    - name: check PATH
+      run: echo $PATH && ./ndiff -h && pwd && ls && echo ====== && ndiff -h
 
-    - name: configure
+    #- name: brew ndiff
+    #  run:  brew install ndiff
+      
+    #- name: check brew ndiff
+    #  run:  cat /usr/local/bin/ndiff
+
+    - name: configure fsc
       run: ln -s gcc.mak Makefile
 
-    - name: Install dependencies
+    - name: build fsc
       run: make all FC=gfortran-11 CC=gcc-11 F77=gfortran-11
 
     - name: Run check
