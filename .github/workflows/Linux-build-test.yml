@@ -29,7 +29,7 @@ jobs:
     - name: Build fsc
       run: make all
 
-    - name: Run check
+    - name: Run fsc check
       run: make check
 
     - name: Run distclean

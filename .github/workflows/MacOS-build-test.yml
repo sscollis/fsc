@@ -35,7 +35,7 @@ jobs:
     - name: build fsc
       run: make all FC=gfortran-11 CC=gcc-11 F77=gfortran-11
 
-    - name: Run check
+    - name: Run fsc check
       run: make check
 
     - name: Run distclean
