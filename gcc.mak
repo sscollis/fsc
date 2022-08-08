@@ -64,8 +64,6 @@ distclean:
 
 check:
 	./fsc < test.inp && \
-	#which ndiff && \
-	#ndiff -h && \
 	ndiff --absolute-error 1e-8 --relative-error 1e-8 cprofile.dat cprofile.ref && \
 	ndiff --absolute-error 1e-8 --relative-error 1e-8 sprofile.dat sprofile.ref; \
 	STATUS=$$?;\
