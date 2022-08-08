@@ -14,14 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: brew ndiff
+      run:  brew install ndiff
+
     - name: configure
       run: ln -s gcc.mak Makefile
 
     - name: Install dependencies
       run: make all
 
-    #- name: Run check
-    #  run: make check
+    - name: Run check
+      run: make check
 
     - name: Run distclean
       run: make distclean
