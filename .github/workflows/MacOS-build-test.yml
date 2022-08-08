@@ -16,6 +16,9 @@ jobs:
 
     - name: brew ndiff
       run:  brew install ndiff
+      
+    - name: check brew ndiff
+      run:  cat /usr/local/bin/ndiff
 
     - name: configure
       run: ln -s gcc.mak Makefile
