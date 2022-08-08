@@ -66,9 +66,6 @@ check:
 	./fsc < test.inp && \
 	ndiff --absolute-error 1e-8 --relative-error 1e-8 cprofile.dat cprofile.ref && \
 	ndiff --absolute-error 1e-8 --relative-error 1e-8 sprofile.dat sprofile.ref; \
-	if [ $$? -eq 0 ]; \
-        then \
-	  echo SUCCESS; \
-	else \
-	  echo FAILURE; \
-	fi
+	STATUS=$$?;\
+	echo "ndiff existed with $$STATUS"; \
+	exit $$STATUS
