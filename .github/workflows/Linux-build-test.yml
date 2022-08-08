@@ -18,7 +18,7 @@ jobs:
       run:  brew install ndiff
       
     - name: check ndiff
-      run:  which ndiff # cat /usr/local/bin/ndiff
+      run:  which ndiff && cp /home/linuxbrew/.linuxbrew/bin/ndiff .
 
     - name: configure
       run: ln -s gcc.mak Makefile
@@ -27,7 +27,7 @@ jobs:
       run: make all
 
     - name: Run check
-      run: env LIBDIR=/usr/local/share/lib/ndiff/ndiff-2.00 make check
+      run: make check
 
     - name: Run distclean
       run: make distclean
