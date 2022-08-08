@@ -21,7 +21,7 @@ jobs:
       run: echo "$GITHUB_WORKSPACE/ndiff" >> $GITHUB_PATH
       
     - name: check PATH
-      run: echo $PATH && ./ndiff -h && echo ====== && ndiff -h 
+      run: echo $PATH && ./ndiff -h && pwd && echo ====== && ndiff -h 
     
     - name: configure fsc
       run: ln -s gcc.mak Makefile
