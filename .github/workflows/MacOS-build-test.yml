@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Makefile CI MacOS
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -17,17 +17,17 @@ jobs:
     - name: brew ndiff
       run:  brew install ndiff
       
-    - name: check ndiff
+    - name: check brew ndiff
       run:  cat /usr/local/bin/ndiff
 
     - name: configure
       run: ln -s gcc.mak Makefile
 
     - name: Install dependencies
-      run: make all
+      run: make all FC=gfortran-11 CC=gcc-11 F77=gfortran-11
 
     - name: Run check
-      run: env LIBDIR=/usr/local/share/lib/ndiff/ndiff-2.00 make check
+      run: make check
 
     - name: Run distclean
       run: make distclean
