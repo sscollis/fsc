@@ -18,7 +18,7 @@ jobs:
       run:  brew install ndiff
       
     - name: check ndiff
-      run:  which ndiff && cp /home/linuxbrew/.linuxbrew/bin/ndiff .
+      run:  which ndiff && cp /home/linuxbrew/.linuxbrew/bin/ndiff . && ls $GITHUB_WORKSPACE && ./ndiff -h
 
     - name: Add ndiff to path
       run: echo "$GITHUB_WORKSPACE/ndiff" >> $GITHUB_PATH
