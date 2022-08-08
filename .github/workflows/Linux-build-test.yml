@@ -23,10 +23,10 @@ jobs:
     - name: check PATH
       run: echo $PATH 
     
-    - name: configure
+    - name: configure fsc
       run: ln -s gcc.mak Makefile
 
-    - name: Install dependencies
+    - name: Build fsc
       run: make all
 
     - name: Run check
