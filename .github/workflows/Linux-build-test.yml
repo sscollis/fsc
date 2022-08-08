@@ -20,6 +20,12 @@ jobs:
     - name: check ndiff
       run:  which ndiff && cp /home/linuxbrew/.linuxbrew/bin/ndiff .
 
+    - name: Add ndiff to path
+      run: echo "$GITHUB_WORKSPACE/ndiff" >> $GITHUB_PATH
+      
+    - name: check PATH
+      run: echo $PATH 
+    
     - name: configure
       run: ln -s gcc.mak Makefile
 
