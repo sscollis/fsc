@@ -18,10 +18,10 @@ jobs:
       run:  curl -s -O ftp://ftp.math.utah.edu/pub/misc/ndiff-2.00.tar.gz && tar -xzf ndiff-2.00.tar.gz && cd ndiff-2.00 && ./configure && make all && ./ndiff -h && cp ndiff $GITHUB_WORKSPACE
 
     - name: Add ndiff to path
-      run: echo "$GITHUB_WORKSPACE/ndiff" >> $GITHUB_PATH
+      run: echo "$GITHUB_WORKSPACE" >> $GITHUB_PATH
       
     - name: check PATH
-      run: echo $PATH && ./ndiff -h && pwd && echo ====== && ndiff -h 
+      run: echo $PATH && ./ndiff -h && pwd && ls && echo ====== && ndiff -h 
     
     - name: configure fsc
       run: ln -s gcc.mak Makefile
